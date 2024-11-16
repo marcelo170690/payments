@@ -1,44 +1,32 @@
 <template>
-  <div class="card flex justify-center">
-    <Card>
-      <template #header>
-        <div class="flex justify-end">
-          <Button @click="goRegisterPayment">
-            Registrar Pago
-          </Button>
-        </div>
-      </template>
-      <template #content>
-        <Tabs v-model:value="tabValue" dashboard>
-          <TabList>
-            <Tab
-              v-for="(item, index) in [allOption, ...clients]"  
-              :value="item.$id" as="div" class="flex items-center gap-2"
-            >
-              <Avatar
-                :image="item.photo_url ? item.photo_url : 'https://gravatar.com/avatar/c3d22a2727cfc628268326ebc61f0598?s=400&d=robohash&r=x'"
-                shape="circle"
-              />
-              <span class="font-bold whitespace-nowrap">{{ item.full_name }}</span>
-            </Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel
-              v-for="(item, index) in [allOption, ...clients]"
-              :value="item.$id"
-            >
-              <Details
-                :clients="clients"
-                :client-id="item.$id"
-                :details="details"
-              />
-            </TabPanel>
-            
-          </TabPanels>
-        </Tabs>
-      </template>
-    </Card>
-  </div>
+  <Tabs v-model:value="tabValue" scrollable>
+    <TabList>
+      <Tab
+        v-for="(item, index) in [allOption, ...clients]"  
+        :value="item.$id" as="div" class="flex items-center gap-2"
+      >
+        <Avatar
+          :image="item.photo_url ? item.photo_url : 'https://gravatar.com/avatar/c3d22a2727cfc628268326ebc61f0598?s=400&d=robohash&r=x'"
+          shape="circle"
+        />
+        <span class="font-bold whitespace-nowrap">{{ item.full_name }}</span>
+      </Tab>
+    </TabList>
+    <TabPanels>
+      <TabPanel
+        v-for="(item, index) in [allOption, ...clients]"
+        :value="item.$id"
+      >
+        <Details
+          :clients="clients"
+          :client-id="item.$id"
+          :details="details"
+          :payments="payments"
+        />
+      </TabPanel>
+      
+    </TabPanels>
+  </Tabs>
 </template>
 
 <script setup>
@@ -59,16 +47,8 @@ import Details from './DetailPayments.vue';
 const clients = ref([]);
 const loading = ref(false);
 const details = ref([]);
+const payments = ref([]);
 const tabValue = ref('0');
-
-import { useRouter } from 'vue-router'
-const router = useRouter()
-
-const goRegisterPayment = () => {
-  router.push({
-    name: 'payments',
-  })
-}
 
 const getClients = async () => {
   // const oaw = oauthAppWrite;
@@ -104,10 +84,25 @@ const getDetails = async () => {
     console.log(error);
   }
 }
+const getPayments = async () => {
+  try {
+    loading.value = true;
+    const response = await databases.listDocuments(
+      import.meta.env.VITE_DATABASE_ID,
+      import.meta.env.VITE_COLLECTION_PAYMENTS_ID,
+    );
+    payments.value = response.documents;
+    loading.value = false;
+  } catch (error) {
+    loading.value = false;
+    console.log(error);
+  }
+}
 
 onMounted(() => {
   getClients();
   getDetails();
+  getPayments();
 });
 
 // import { computed } from 'vue'

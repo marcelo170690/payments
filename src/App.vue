@@ -1,14 +1,20 @@
 <template>
-  <button @click="goInicio">
-    Inicio
-  </button>
-  <div>
-    <router-view></router-view>
+  <div class="flex flex-col min-h-screen">
+    <!-- Menú -->
+    <Menu />
+
+    <!-- Contenido principal -->
+    <main class="flex-grow">
+      <router-view></router-view>
+    </main>
+
+    <!-- Footer -->
+    <Footer />
   </div>
-  <Footer />
 </template>
 
 <script setup>
+import Menu from './components/Menu.vue'
 import Footer from './components/Footer.vue'
 import { useRouter } from 'vue-router'; 
 const router = useRouter()
@@ -18,4 +24,7 @@ const goInicio = () => {
 </script>
 
 <style scoped>
+.content {
+  flex: 1; /* Hace que el contenido principal crezca y ocupe el espacio disponible */
+}
 </style>

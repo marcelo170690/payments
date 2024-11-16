@@ -6,7 +6,8 @@ import RegisterPayment from '../views/payments/RegisterPayment.vue';
 // courses
 import Test1 from '../views/course/Test1.vue';
 import Test2 from '../views/course/Test2.vue';
-// payments - details
+// todo
+import ToDoList from '../views/to-do/ToDoList.vue'
 
 
 const routes = [
@@ -16,14 +17,14 @@ const routes = [
     name: 'root',
   },
   {
-    path: '/clients',
+    path: '/services',
     component: Clients,
-    name: 'clients',
+    name: 'services',
   },
   {
-    path: '/payments',
+    path: '/register-payments',
     component: RegisterPayment,
-    name: 'payments',
+    name: 'register-payments',
   },
   // { path: '/about', component: AboutView },
   // courses
@@ -36,6 +37,11 @@ const routes = [
     path: '/test2',
     component: Test2,
     name: 'test2',
+  },
+  {
+    path: '/todo-list',
+    component: ToDoList,
+    name: 'todo-list',
   },
 ]
 

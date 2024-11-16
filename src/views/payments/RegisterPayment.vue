@@ -1,7 +1,26 @@
-
 <template>
-  <div class="card flex justify-center">
-    <Toast />
+  <Toast />
+  <div v-if="!showForm" class="card mt-10">
+    <div class="flex flex-col items-center gap-4 mb-2">
+      <InputText
+        v-model="password"
+        placeholder="Contraseña"
+        class="w-1/2"
+      />
+      <Message v-if="passwordError" severity="error" size="small" variant="simple">
+        * {{ passwordError }}
+      </Message>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <Button
+        severity="primary"
+        label="Verificar"
+        class="w-1/2"
+        @click="verifyPassword"
+      />
+    </div>
+  </div>
+  <div v-else class="card flex justify-center">
     <Card style="width: 25rem;">
       <template #content>
         <div class="flex flex-col justify-center items-center gap-4 mb-2">
@@ -120,6 +139,10 @@ import {
 
 const toast = useToast();
 
+const showForm = ref(false);
+const password = ref(null);
+const passwordError = ref(null);
+
 const clients = ref([]);
 const services = ref([]);
 const payments = ref([]);
@@ -229,7 +252,6 @@ const getServices = async () => {
 const storePayment = () => {
   resetErrors();
   const valid = validateForm();
-  console.log(valid)
   try {
     if (!valid) {
       toast.add({ severity: 'warn', summary: 'Datos Invalidos.', life: 3000 });
@@ -249,7 +271,6 @@ const storePayment = () => {
 
     promise.then(function (response) {
       loading.value = false;
-      console.log(response);
       resetData();
       toast.add({ severity: 'success', summary: 'Se guardo el pago exitosamente.', life: 3000 });
     }, function (error) {
@@ -262,9 +283,18 @@ const storePayment = () => {
   }
 }
 
+const verifyPassword = () => {
+  if (password.value !== 'marcelo@') {
+    toast.add({ severity: 'warn', summary: 'Contraseña Inválida.', life: 3000 });
+    return;
+  }
+  toast.add({ severity: 'success', summary: 'Contraseña Correcta.', life: 3000 });
+  showForm.value = true;
+  getClients();
+  getServices();
+}
+
 watch(() => formPaymen.service, (service) => {
-  console.log('watch');
-  console.log(service);
   if (service) {
     const indexService = services.value.findIndex(item => item.$id === service);
     if (indexService !== -1) {
@@ -274,9 +304,8 @@ watch(() => formPaymen.service, (service) => {
   }
 });
 
-onMounted(() => {
-  getClients();
-  getServices();
-})
+// onMounted(() => {
+  
+// })
 
 </script>
