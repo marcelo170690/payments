@@ -1,4 +1,4 @@
-import{s as y}from"./index-otLGpm_C.js";import{B as w,R as k,e as z,r as x,g as S,o as a,v as m,w as O,l as u,a as j,m as t,h as r,c as i,q as P,x as $,j as p,ar as B,T as I}from"./index-DDNgysSa.js";var C=function(s){var e=s.dt;return`
+import{s as y}from"./index-CEaFRDN1.js";import{B as w,R as k,e as z,r as x,g as S,o as a,v as m,w as O,l as u,a as j,m as t,h as r,c as i,q as P,x as $,j as p,ar as B,T as I}from"./index-Cj-k1PN7.js";var C=function(s){var e=s.dt;return`
 .p-message {
     border-radius: `.concat(e("message.border.radius"),`;
     outline-width: `).concat(e("message.border.width"),`;
