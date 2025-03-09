@@ -3,7 +3,7 @@
     <Image
       src="https://gravatar.com/avatar/0f7942083534622ab5f8af99d4837cf0?s=400&d=robohash&r=x"
       alt="Image"
-      class="w-[250px] h-[250px] mx-auto"  
+      class="w-[250px] h-[250px] mx-auto"
     />
     <br>
     <Button

@@ -1,13 +1,15 @@
-import Root from '../views/Root.vue'
+// import Root from '../views/Root.vue'
+const Root = () => import('../views/Root.vue');
 // platforms
-import Clients from '../views/payments/Clients.vue'
-import RegisterPayment from '../views/payments/RegisterPayment.vue';
+const Clients = () => import('../views/payments/Clients.vue');
+const RegisterPayment = () => import('../views/payments/RegisterPayment.vue');
+const NewPayment = () => import('../views/payments/NewPayment.vue');
 // import AboutView from './AboutView.vue'
 // courses
-import Test1 from '../views/course/Test1.vue';
-import Test2 from '../views/course/Test2.vue';
+const Test1 = () => import('../views/course/Test1.vue');
+const Test2 = () => import('../views/course/Test2.vue');
 // todo
-import ToDoList from '../views/to-do/ToDoList.vue'
+const ToDoList = () => import('../views/to-do/ToDoList.vue');
 
 
 const routes = [
@@ -25,6 +27,11 @@ const routes = [
     path: '/register-payments',
     component: RegisterPayment,
     name: 'register-payments',
+  },
+  {
+    path: '/new-payment',
+    component: NewPayment,
+    name: 'new-payment',
   },
   // { path: '/about', component: AboutView },
   // courses

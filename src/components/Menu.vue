@@ -37,6 +37,15 @@ const items = ref([
           });
         },
       },
+      {
+        label: 'Nuevo Registro Pago',
+        icon: 'pi pi-file',
+        command: () => {
+          router.push({
+            name: 'new-payment',
+          });
+        },
+      },
     ]
   },
   {

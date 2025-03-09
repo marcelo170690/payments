@@ -39,7 +39,7 @@ import TabPanels from 'primevue/tabpanels';
 import TabPanel from 'primevue/tabpanel';
 import Avatar from 'primevue/avatar';
 import { ref, onMounted } from 'vue';
-import { databases } from '../../appwrite/config';
+import { databases, Query } from '../../appwrite/config';
 // import { oauthAppWrite } from './api/oauth'
 // components
 import Details from './DetailPayments.vue';
@@ -73,9 +73,10 @@ const getDetails = async () => {
     const response = await databases.listDocuments(
       import.meta.env.VITE_DATABASE_ID,
       import.meta.env.VITE_COLLECTION_DETAILS_ID,
-      // [
-      //   Query.equal('client_id', clientId)
-      // ]
+      [
+        Query.limit(100),
+        Query.offset(0)
+      ]
     );
     details.value = response.documents;
     loading.value = false;

@@ -1,9 +1,12 @@
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-const environment = process.env.VITE_ENV;
 // https://vitejs.dev/config/
-export default defineConfig({
-  base: '/payments/',
-  plugins: [vue()],
-})
+export default ({ mode }) => {
+  process.env = {...process.env, ...loadEnv(mode, process.cwd())};
+  return defineConfig({
+
+    base: process.env.VITE_ENV === 'production' ? '/payments/' : '/',
+    plugins: [vue()],
+  });
+}
